@@ -43,10 +43,6 @@ RAM is the most scarce resource on an ATtiny (the ATtiny13 possesses only 64 Byt
 
 ### PlatformIO
 If you are using PlatformIO, you can clone the repository directly into your `lib/` directory or include it via `platformio.ini`:
-```ini
-lib_deps =
-    ATTinySerial=[https://github.com/YOUR_GITHUB_USERNAME/ATTinySerial.git](https://github.com/YOUR_GITHUB_USERNAME/ATTinySerial.git)
-```
 
 ---
 
