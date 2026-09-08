@@ -227,8 +227,7 @@ void loop() {
 * **`void println()`**  
   Transmits a standard serial line ending sequence consisting of a Carriage Return (`\r`) followed by a Line Feed (`\n`).
 
-* **`inline void println(...)`**  
-  A comprehensive set of inline wrappers mirroring every available `print()` signature. These methods append `\r\n` immediately after transmitting the data payload with near-zero overhead.
+![ATTiny Pinout](attiny_pinout.jpeg)
 
 ---
 
