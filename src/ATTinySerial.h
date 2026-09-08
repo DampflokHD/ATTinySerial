@@ -2,7 +2,7 @@
  * @file ATTinySerial.h
  * @author DampflokHD
  * @brief Ultra-minimalist UART TX library for ATtiny microcontrollers.
- * @version 1.0.4
+ * @version 1.0.5
  * @date 2026-09-08
  * 
  * @copyright Copyright (c) 2026 DampflokHD. Licensed under the MIT License.
