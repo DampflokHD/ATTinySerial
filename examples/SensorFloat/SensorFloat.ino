@@ -1,21 +1,21 @@
-#include <ATTinySerial.h>
+#include <ATTinymySerial.h>
 
-ATTinySerial serial(0);
+ATTinymySerial mySerial(0);
 
 void setup() {
-    serial.begin(9600);
+    mySerial.begin(9600);
 }
 
 void loop() {
     float temperature = 24.5678f;
     int32_t uptime = 100000;
     
-    serial.print(F("Temp: "));
-    serial.print(temperature, 2); // Prints "24.57"
-    serial.println(F(" C"));
+    mySerial.print(F("Temp: "));
+    mySerial.print(temperature, 2); // Prints "24.57"
+    mySerial.println(F(" C"));
     
-    serial.print(F("Uptime: "));
-    serial.println(uptime);
+    mySerial.print(F("Uptime: "));
+    mySerial.println(uptime);
     
     delay(2000);
 }
