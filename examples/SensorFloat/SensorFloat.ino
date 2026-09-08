@@ -1,6 +1,6 @@
-#include <ATTinymySerial.h>
+#include <ATTinySerial.h>
 
-ATTinymySerial mySerial(0);
+ATTinySerial mySerial(0);
 
 void setup() {
     mySerial.begin(9600);
