@@ -46,3 +46,72 @@ If you are using PlatformIO, you can clone the repository directly into your `li
 ```ini
 lib_deps =
     ATTinySerial=[https://github.com/YOUR_GITHUB_USERNAME/ATTinySerial.git](https://github.com/YOUR_GITHUB_USERNAME/ATTinySerial.git)
+```
+
+---
+
+## Code Examples
+
+### 1. Basic Transmission
+The simplest implementation initializing the transmission on the default pin (PB0).
+```cpp
+#include <ATTinySerial.h>
+
+// Instantiate the object using default TX pin PB0
+ATTinySerial serial;
+
+void setup() {
+    // Initialize UART at 9600 baud
+    serial.begin(9600);
+}
+
+void loop() {
+    serial.println("ATtiny is running.");
+    delay(1000);
+}
+```
+
+### 2. Memory Saving with PROGMEM (F-Macro)
+On an ATtiny13 with only 64 Bytes of RAM, strings can crash your program. Use the F() macro to keep text in Flash memory!
+```cpp
+#include <ATTinySerial.h>
+
+ATTinySerial serial(2); // Set TX pin to PB2
+
+void setup() {
+    serial.begin(9600);
+    
+    // The F() macro prevents the string from eating up your RAM!
+    serial.println(F("This string lives in Flash Memory!"));
+}
+
+void loop() {
+    // ...
+}
+```
+
+### 3. Printing Sensors & Floats
+ATTinySerial comes with a robust float-to-string implementation. It automatically handles rounding and negative numbers.
+```cpp
+#include <ATTinySerial.h>
+
+ATTinySerial serial(0);
+
+void setup() {
+    serial.begin(9600);
+}
+
+void loop() {
+    float temperature = 24.5678f;
+    int32_t uptime = 100000;
+    
+    serial.print(F("Temp: "));
+    serial.print(temperature, 2); // Print with 2 decimal places -> "24.57"
+    serial.println(F(" C"));
+    
+    serial.print(F("Uptime: "));
+    serial.println(uptime);       // Handles large 32-bit integers perfectly
+    
+    delay(2000);
+}
+```
