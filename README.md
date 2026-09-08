@@ -1,6 +1,6 @@
 # ATTinySerial
 
-**An Ultra-Minimalist, High-Performance UART TX Library for AVR ATtiny Microcontrollers**
+**An Ultra-Minimalist, High-Performance UART TX Library for AVR ATtiny Microcontrollers (Arduino IDE compatible)**
 
 The ATtiny microcontroller series (such as the ATtiny13, ATtiny25, ATtiny45, and ATtiny85) offers immense flexibility in a highly compact form factor. However, these devices suffer from severe Flash memory constraints (as low as 1KB) and a limited number of hardware timers. 
 
