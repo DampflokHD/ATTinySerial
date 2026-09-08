@@ -1,8 +1,6 @@
 # keywords.txt for Arduino IDE Syntax Highlighting
-
-ATTinySerial	KEYWORD1
-
-begin	KEYWORD2
-write	KEYWORD2
-print	KEYWORD2
-println	KEYWORD2
+ATTinySerial  KEYWORD1
+begin  KEYWORD2
+write  KEYWORD2
+print  KEYWORD2
+println  KEYWORD2
