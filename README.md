@@ -115,3 +115,84 @@ void loop() {
     delay(2000);
 }
 ```
+
+### 4. Full Test
+to be continued
+```cpp
+to be continued
+```
+
+---
+
+## API Reference
+
+### Initialization & Setup
+
+* **`ATTinySerial(uint8_t pin = 0)`**  
+  Instantiates the class object. It assigns the target transmission pin on `PORTB`, defaulting to `0` (which corresponds to `PB0`).
+
+* **`void begin(uint32_t baudrate)`**  
+  Configures the designated TX pin as an output, pulls it high to establish the proper UART idle state, and calculates precise delay cycles based on the core CPU frequency (`F_CPU`) and the target `baudrate`.
+
+* **`void begin(uint32_t baudrate, uint8_t pin)`**  
+  Allows you to reassign the active TX pin dynamically and initialize the transmission parameters in a single combined step.
+
+### Core Transmission
+
+* **`void write(char c)`**  
+  The low-level transmission engine. It handles the start bit, shifts out 8 data bits (least-significant-bit first), and concludes with the stop bit. To guarantee uncorrupted bit-banging timing, global interrupts are temporarily suspended using `cli()` for the duration of the byte transmission.
+
+### Data Output (`print`)
+
+* **`void print(char c)`**  
+  Transmits a single character directly, acting as a direct wrapper around `write()`.
+
+* **`void print(const char* str)`**  
+  Iterates through and transmits a null-terminated character string stored in SRAM. It includes built-in `nullptr` protection to prevent runtime crashes.
+
+* **`void print(const __FlashStringHelper* str)`**  
+  Transmits string literals stored directly in Flash memory via PROGMEM (`pgm_read_byte`), preserving scarce SRAM. This method is utilized automatically alongside the `F()` macro.
+
+* **`void print(bool b)`**  
+  Evaluates a boolean condition, outputting ASCII `'1'` for true and `'0'` for false.
+
+* **`void print(int8_t` / `int16_t` / `int32_t num)`**  
+  Converts signed integers of various widths into human-readable decimal strings. It cleanly handles edge cases and negative boundaries.
+
+* **`void print(uint8_t` / `uint16_t` / `uint32_t num)`**  
+  Converts unsigned integers into their decimal string representations.
+
+* **`void print(float num, uint8_t decimals = 2)`**  
+  Formats and transmits floating-point values with a user-defined precision (capped at a maximum of 9 decimal places). It features built-in handling for `NaN`, `Inf`, and `-Inf`, precise rounding adjustments (`+0.5f`), and 32-bit scale overflow protection (`ovf`).
+
+### Formatting & Line Termination (`println`)
+
+* **`void println()`**  
+  Transmits a standard serial line ending sequence consisting of a Carriage Return (`\r`) followed by a Line Feed (`\n`).
+
+* **`inline void println(...)`**  
+  A comprehensive set of inline wrappers mirroring every available `print()` signature. These methods append `\r\n` immediately after transmitting the data payload with near-zero overhead.
+
+---
+
+##Printing Data
+
+The `print()` and `println()` functions support almost all native types:
+
+- Characters: `print(char c)`
+- Strings: `print(const char* str)` & `print(const __FlashStringHelper* str)`
+- Booleans: `print(bool b)` (Outputs `'1'` or `'0'`)
+- Integers: `int8_t`, `uint8_t`, `int16_t`, `uint16_t`, `int32_t`, `uint32_t`
+- Floats: `print(float num, uint8_t decimals = 2)`
+(Note: `println` variants simply append `\r\n` to the output.)
+
+---
+
+##Limitations
+
+To maintain its ultra-compact footprint, this library operates under specific constraints:
+
+1. **Half-Duplex / TX-Only**: This library cannot receive (RX) serial data. It is intended strictly for data transmission, logging, and debugging.
+2. **Blocking Execution**: During the transmission of a byte, _delay_loop_2 occupies the CPU completely, and global interrupts are temporarily turned off. High-frequency time-sensitive tasks running in the background may experience slight jitter.
+3. **Clock Speed Dependency**: The baud rate accuracy depends directly on an accurate F_CPU definition. Lower frequencies (like 1 MHz) limit reliable maximum baud rates compared to an 8 MHz configuration.
+
