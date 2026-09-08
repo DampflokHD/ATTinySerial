@@ -1,19 +1,19 @@
 #include <ATTinySerial.h>
 #include <avr/wdt.h>
 
-ATTinySerial debugSerial;
+ATTinySerial mySerial;
 
 void setup() {
     uint8_t resetCause = MCUSR;
     MCUSR = 0;
     wdt_disable();
 
-    debugSerial.begin(9600);
+    mySerial.begin(9600);
 
     if (resetCause & _BV(WDRF)) {
-        debugSerial.println(F("ERROR: watchdog reset"));
+        mySerial.println(F("ERROR: watchdog reset"));
     } else {
-        debugSerial.println(F("OK: startup"));
+        mySerial.println(F("OK: startup"));
     }
 
     wdt_enable(WDTO_8S);
@@ -21,42 +21,42 @@ void setup() {
 
 void loop() {
     wdt_reset();
-    debugSerial.println(F("ATTinySerial test"));
-    debugSerial.write('>');
-    debugSerial.println();
+    mySerial.println(F("ATTinySerial test"));
+    mySerial.write('>');
+    mySerial.println();
 
-    debugSerial.print(F("char: "));
-    debugSerial.println('A');
-    debugSerial.print(F("string: "));
-    debugSerial.println("RAM string");
-    debugSerial.print(F("flash: "));
-    debugSerial.println(F("Flash string"));
+    mySerial.print(F("char: "));
+    mySerial.println('A');
+    mySerial.print(F("string: "));
+    mySerial.println("RAM string");
+    mySerial.print(F("flash: "));
+    mySerial.println(F("Flash string"));
 
-    debugSerial.print(F("bool: "));
-    debugSerial.print(true);
-    debugSerial.print(' ');
-    debugSerial.println(false);
+    mySerial.print(F("bool: "));
+    mySerial.print(true);
+    mySerial.print(' ');
+    mySerial.println(false);
 
-    debugSerial.println((int8_t)-128);
-    debugSerial.println((uint8_t)255);
-    debugSerial.println((int16_t)-32768);
-    debugSerial.println((uint16_t)65535);
-    debugSerial.println((int32_t)(-2147483647L - 1L));
-    debugSerial.println((uint32_t)4294967295UL);
+    mySerial.println((int8_t)-128);
+    mySerial.println((uint8_t)255);
+    mySerial.println((int16_t)-32768);
+    mySerial.println((uint16_t)65535);
+    mySerial.println((int32_t)(-2147483647L - 1L));
+    mySerial.println((uint32_t)4294967295UL);
 
-    debugSerial.print(F("float: "));
-    debugSerial.println(23.4567f, 4);
-    debugSerial.println(-0.0049f, 3);
-    debugSerial.println(12.5f, 0);
-    debugSerial.println(1.0f / 3.0f, 9);
-    debugSerial.println(NAN, 2);
-    debugSerial.println(INFINITY, 2);
-    debugSerial.println(-INFINITY, 2);
-    debugSerial.println(4294967296.0f, 2);
+    mySerial.print(F("float: "));
+    mySerial.println(23.4567f, 4);
+    mySerial.println(-0.0049f, 3);
+    mySerial.println(12.5f, 0);
+    mySerial.println(1.0f / 3.0f, 9);
+    mySerial.println(NAN, 2);
+    mySerial.println(INFINITY, 2);
+    mySerial.println(-INFINITY, 2);
+    mySerial.println(4294967296.0f, 2);
 
     wdt_reset();
-    debugSerial.println(F("OK: test complete"));
-    debugSerial.println();
+    mySerial.println(F("OK: test complete"));
+    mySerial.println();
 
     delay(5000);
 }
