@@ -227,7 +227,9 @@ void loop() {
 * **`void println()`**  
   Transmits a standard serial line ending sequence consisting of a Carriage Return (`\r`) followed by a Line Feed (`\n`).
 
-### Pinout Schematic
+---
+
+## Pinout Schematic
 
 ![ATTiny Pinout](attiny_pinout.jpeg)
 
